@@ -17,22 +17,34 @@
 */
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import ReactPixel from "react-facebook-pixel";
 
 import "assets/vendor/nucleo/css/nucleo.css";
 import "assets/vendor/@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/scss/argon-dashboard-react.scss";
+import "layouts/Documentation/assets-for-demo/docs.scss";
+import "layouts/Documentation/assets-for-demo/react-docs.scss";
 
 import AdminLayout from "layouts/Admin.jsx";
 import AuthLayout from "layouts/Auth.jsx";
+import Documentation from "layouts/Documentation/Documentation.jsx";
+
+ReactPixel.init("111649226022273");
+ReactPixel.pageView();
+ReactPixel.fbq("track", "PageView");
 
 ReactDOM.render(
-  <BrowserRouter>
+  <HashRouter>
     <Switch>
       <Route path="/admin" render={props => <AdminLayout {...props} />} />
       <Route path="/auth" render={props => <AuthLayout {...props} />} />
+      <Route
+        path="/documentation"
+        render={props => <Documentation {...props} />}
+      />
       <Redirect from="/" to="/admin/index" />
     </Switch>
-  </BrowserRouter>,
+  </HashRouter>,
   document.getElementById("root")
 );
